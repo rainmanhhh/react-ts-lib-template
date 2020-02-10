@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - run: yarn install --frozen-lockfile --non-interactive
+      - run: yarn build
+      - run: yarn test
+      - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
